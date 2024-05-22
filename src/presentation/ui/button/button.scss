@@ -1,0 +1,83 @@
+// Define color variables
+$primary-color: black;
+$primary-text-color: white;
+$destructive-color: tomato;
+$destructive-text-color: white;
+$secondary-color: aqua;
+$secondary-text-color: black;
+$accent-color: lime;
+$accent-text-color: black;
+$input-border-color: grey;
+$background-color: white;
+
+.button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.default {
+    background-color: $primary-color;
+    color: $primary-text-color;
+    &:hover {
+      background-color: rgba($primary-color, 0.9);
+    }
+  }
+
+  // Destructive button style
+  &.destructive {
+    background-color: $destructive-color;
+    color: $destructive-text-color;
+    &:hover {
+      background-color: rgba($destructive-color, 0.9);
+    }
+  }
+
+  // Outline button style
+  &.outline {
+    background-color: $background-color;
+    border: 1px solid $input-border-color;
+    color: $accent-text-color;
+    &:hover {
+      background-color: $accent-color;
+    }
+  }
+
+  // Secondary button style
+  &.secondary {
+    background-color: $secondary-color;
+    color: $secondary-text-color;
+    &:hover {
+      background-color: rgba($secondary-color, 0.8);
+    }
+  }
+
+  // Ghost button style
+  &.ghost {
+    background-color: transparent;
+    color: $accent-text-color;
+    &:hover {
+      background-color: $accent-color;
+    }
+  }
+
+  // Link button style
+  &.link {
+    color: $primary-color;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &.block {
+    width: 100%;
+  }
+}
