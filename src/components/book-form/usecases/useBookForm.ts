@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { createNewBook, deleteAddedBook, editAddedBook } from "src/lib/stores/books-store";
-import { useAppDispatch, useAppSelector } from "src/lib/stores/hooks";
+import useBookStore from "src/lib/stores/books-store/hook";
+import { useAppDispatch } from "src/lib/stores/hooks";
 import { Book } from "src/models/types";
 import schema from "../models/types";
 import { convertFileToBase64 } from "../utils";
@@ -19,32 +20,34 @@ export default function useBookForm() {
     resolver: yupResolver(schema),
   });
   const { id } = useParams();
-  const userBook = useAppSelector((state) => state.userBook);
+  const { checkIsThisBookFromUser, getUserAddedBook } = useBookStore();
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isEditState = !!id;
 
   useEffect(() => {
     if (id) {
-      const data = userBook.find((book) => Number(id) === book.id);
+      const data = getUserAddedBook(id);
       if (data) {
         reset(data);
       }
     }
-  }, [id, reset, userBook]);
+  }, [getUserAddedBook, id, reset]);
 
   useEffect(() => {
     if (!id) {
       const generateId = (): number => {
         const mockid = Math.floor(Math.random() * 1000000);
-        if (userBook.find(({ id }) => id === mockid)) {
+        const isThisBookAvailable = checkIsThisBookFromUser(mockid);
+        if (isThisBookAvailable) {
           return generateId();
         }
         return mockid;
       };
       setValue("id", generateId());
     }
-  }, [userBook, setValue, id]);
+  }, [setValue, id, checkIsThisBookFromUser]);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

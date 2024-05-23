@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { addBooktoFavourite, deleteBookfromFavourite } from "src/lib/stores/books-store";
-import { useAppDispatch, useAppSelector } from "src/lib/stores/hooks";
-import { RootState } from "src/lib/stores/store";
+import useBookStore from "src/lib/stores/books-store/hook";
 import { Book } from "src/models/types";
 
 const defaultImage = "/no-cover.png";
@@ -10,30 +8,29 @@ const defaultImage = "/no-cover.png";
 export default function useItemState(book: Book) {
   const { id } = useParams();
   const [imageSrc, setImageSrc] = useState(book.cover);
+  const { onAddToFavorite, onRemovefromFavourite, checkIsBookFavourite } = useBookStore();
 
   const handleImageError = () => {
     setImageSrc(defaultImage);
   };
-  const favourites = useAppSelector((state: RootState) => state.favourites);
-  const dispatch = useAppDispatch();
 
-  const isThisBookinFavourite = !!favourites.find((b) => b.id === book.id);
+  const isThisBookinFavourite = checkIsBookFavourite(book);
   const isEditable = book.isUserAddedBook;
 
-  const onAddToFavorite = () => {
-    dispatch(addBooktoFavourite(book));
+  const addtoFavourite = () => {
+    onAddToFavorite(book);
   };
 
-  const onRemovefromFavourite = () => {
-    dispatch(deleteBookfromFavourite(book.id));
+  const removefromFavourite = () => {
+    onRemovefromFavourite(book.id);
   };
 
   const onHandleToggleFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (isThisBookinFavourite) {
-      return onRemovefromFavourite();
+      return removefromFavourite();
     }
-    return onAddToFavorite();
+    return addtoFavourite();
   };
 
   return {
