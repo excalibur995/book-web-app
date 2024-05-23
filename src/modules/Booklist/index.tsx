@@ -1,13 +1,11 @@
-import PaginatedList from "src/components/paginated-list";
-import "./booklist.scss";
+import BooklistPresentation from "src/presentation/book-list-pres";
 import useBookList from "./repo/useBookList";
 
 function BooklistPage() {
   const response = useBookList();
   return (
     <main className="container">
-      <h2>Special for You</h2>
-      <PaginatedList {...response} />
+      <BooklistPresentation title="Special for You" {...response} />
     </main>
   );
 }

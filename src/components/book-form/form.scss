@@ -1,0 +1,27 @@
+@import "src/styles/_variables.scss";
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: $medium-screen;
+  margin: 0 auto;
+  div {
+    display: inherit;
+    flex-direction: column;
+    gap: 0.5rem;
+    label {
+      font-weight: 700;
+    }
+    input {
+      padding: 0.45rem 12px;
+      border-radius: 9px;
+      border: 1px solid #a1a1a1;
+    }
+    p {
+      color: red;
+      margin: 0;
+      font-size: 12px;
+    }
+  }
+}

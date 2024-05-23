@@ -9,4 +9,5 @@ export interface Book {
   description: string;
   cover: string;
   publicationDate: string;
+  isUserAddedBook?: boolean;
 }

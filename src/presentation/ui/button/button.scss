@@ -3,7 +3,7 @@ $primary-color: black;
 $primary-text-color: white;
 $destructive-color: tomato;
 $destructive-text-color: white;
-$secondary-color: aqua;
+$secondary-color: #f4f4f5;
 $secondary-text-color: black;
 $accent-color: lime;
 $accent-text-color: black;
@@ -52,6 +52,7 @@ $background-color: white;
 
   // Secondary button style
   &.secondary {
+    font-weight: 600;
     background-color: $secondary-color;
     color: $secondary-text-color;
     &:hover {
