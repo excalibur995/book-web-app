@@ -6,6 +6,7 @@ import { createNewBook, deleteAddedBook, editAddedBook } from "src/lib/stores/bo
 import useBookStore from "src/lib/stores/books-store/hook";
 import { useAppDispatch } from "src/lib/stores/hooks";
 import { Book } from "src/models/types";
+import useToastState from "src/presentation/ui/toast/hooks/useToast";
 import schema from "../models/types";
 import { convertFileToBase64 } from "../utils";
 
@@ -21,6 +22,7 @@ export default function useBookForm() {
   });
   const { id } = useParams();
   const { checkIsThisBookFromUser, getUserAddedBook } = useBookStore();
+  const { open, setOpen, onHandleOpen } = useToastState();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -60,6 +62,7 @@ export default function useBookForm() {
   };
 
   const onSubmit = (data: Book) => {
+    onHandleOpen();
     if (isEditState) {
       dispatch(editAddedBook(data));
       return navigate(`/detail/${data.id}`, { replace: true });
@@ -72,6 +75,7 @@ export default function useBookForm() {
   const onFinish = handleSubmit(onSubmit);
   const onDeleteBook = () => {
     if (id) {
+      onHandleOpen();
       dispatch(deleteAddedBook(Number(id)));
       navigate("/", { replace: true });
     }
@@ -84,5 +88,7 @@ export default function useBookForm() {
     errors,
     isEditState,
     onDeleteBook,
+    open,
+    setOpen,
   };
 }

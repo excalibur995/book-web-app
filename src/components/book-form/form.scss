@@ -24,4 +24,14 @@ form {
       font-size: 12px;
     }
   }
+  section {
+    display: inline-flex;
+    justify-content: center;
+    gap: 1rem;
+    button {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+    }
+  }
 }

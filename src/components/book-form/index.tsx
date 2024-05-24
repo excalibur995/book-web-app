@@ -38,13 +38,15 @@ export default function BookForm() {
           <input id="publicationDate" type="date" {...register("publicationDate")} max={dayjs().format("YYYY-MM-DD")} />
           {errors.publicationDate && <p>{errors.publicationDate.message}</p>}
         </div>
+        <section>
+          <Button type="submit">{isEditState ? "Update" : "Submit"}</Button>
 
-        <Button type="submit">{isEditState ? "Update" : "Submit"}</Button>
-        {isEditState && (
-          <Button type="button" onClick={onDeleteBook} variant="destructive">
-            Delete Book
-          </Button>
-        )}
+          {isEditState && (
+            <Button type="button" onClick={onDeleteBook} variant="destructive">
+              Delete Book
+            </Button>
+          )}
+        </section>
       </form>
     </div>
   );
