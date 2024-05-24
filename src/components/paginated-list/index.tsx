@@ -1,25 +1,25 @@
 import { Suspense } from "react";
 import { Link } from "react-router-dom";
 import { PaginatedBooksProps as Props } from "./models/types";
-import "./paginted-list.scss";
+import "./paginated-list.scss";
 
 import Item from "../book-item";
+import ListSkeleton from "./presentation/list-skeleton";
 import Pagination from "./presentation/pagination";
 import usePaginatedStates from "./usecases/usePaginatedStates";
 
 export default function PaginatedList({ isError, isLoading, data }: Props) {
   const { handleNext, handlePrevious, paginatedBooks, page, totalPages } = usePaginatedStates(data || []);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ListSkeleton />;
   if (isError) return <div>Error loading stories</div>;
-
-  if (paginatedBooks && paginatedBooks.length < 1) return <div>You don't have anything to show.</div>;
+  if (!paginatedBooks.length) return <div>You don't have anything to show.</div>;
 
   return (
     <>
       <ul className="book-list">
         {paginatedBooks.map((book) => (
-          <Suspense key={book.id}>
+          <Suspense key={book.id} fallback={<div>Books Loading...</div>}>
             <Link id="RouterNavLink" to={`/detail/${book.id}`}>
               <Item {...book} />
             </Link>

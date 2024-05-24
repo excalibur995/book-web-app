@@ -1,10 +1,10 @@
 import { Navigate, useLocation, useParams } from "react-router-dom";
-
 import Item from "src/components/book-item";
+import BookSkeleton from "src/presentation/book-skeleton";
 import "./book-detail.scss";
 import useBook from "./repo/useBook";
 
-const BookeDetail = () => {
+const BookDetail = () => {
   const { id } = useParams();
   const location = useLocation();
   const { data, isError, isLoading } = useBook(id);
@@ -13,14 +13,13 @@ const BookeDetail = () => {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  if (isLoading) return <main>Loading...</main>;
-  if (isError || !data) return <main>Error loading stories</main>;
-
   return (
     <main className="container detail-container">
-      <Item {...data} />
+      {isLoading && <BookSkeleton />}
+      {!isLoading && (isError || !data) && "Error loading stories"}
+      {data && <Item {...data} />}
     </main>
   );
 };
 
-export default BookeDetail;
+export default BookDetail;
