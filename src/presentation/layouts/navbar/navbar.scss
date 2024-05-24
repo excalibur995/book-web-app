@@ -48,3 +48,13 @@ $light-border: #efefef;
     }
   }
 }
+
+.ham {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (min-width: $medium-screen) {
+    display: none;
+  }
+}

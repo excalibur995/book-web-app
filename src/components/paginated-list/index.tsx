@@ -8,10 +8,7 @@ import Pagination from "./presentation/pagination";
 import usePaginatedStates from "./usecases/usePaginatedStates";
 
 export default function PaginatedList({ isError, isLoading, data }: Props) {
-  const { paginatedBooks, changePage, page, totalPages } = usePaginatedStates(data || []);
-
-  const handlePrevious = () => changePage(page - 1);
-  const handleNext = () => changePage(page + 1);
+  const { handleNext, handlePrevious, paginatedBooks, page, totalPages } = usePaginatedStates(data || []);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading stories</div>;
@@ -23,7 +20,7 @@ export default function PaginatedList({ isError, isLoading, data }: Props) {
       <ul className="book-list">
         {paginatedBooks.map((book) => (
           <Suspense key={book.id}>
-            <Link to={`/detail/${book.id}`}>
+            <Link id="RouterNavLink" to={`/detail/${book.id}`}>
               <Item {...book} />
             </Link>
           </Suspense>

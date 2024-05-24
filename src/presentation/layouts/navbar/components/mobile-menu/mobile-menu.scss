@@ -1,0 +1,32 @@
+@import "src/styles/_variables.scss";
+
+$light-bg: #f8f8f8;
+$light-border: #efefef;
+
+.drawer-custom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  width: 100vw !important;
+  padding: 0 !important;
+  position: relative;
+}
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  font-size: 2rem;
+  text-align: center;
+  transition: all 1.2s ease-in;
+  opacity: 0;
+  transform: translateY(-100);
+  &[aria-haspopup="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.x-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+}

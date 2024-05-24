@@ -2,13 +2,12 @@ import React from "react";
 import { formatDate } from "src/lib/utils";
 import "./book-item.scss";
 
-import { Link } from "react-router-dom";
 import Button from "src/presentation/ui/button";
 import { ItemProps } from "./models/types";
 import useItemState from "./usecases/useItemState";
 
 const Item: React.FC<ItemProps> = (book) => {
-  const { onHandleToggleFavourite, isThisBookinFavourite, isEditable, imageSrc, handleImageError, isDetail } =
+  const { goToEdit, onHandleToggleFavourite, isThisBookinFavourite, isEditable, imageSrc, handleImageError, isDetail } =
     useItemState(book);
 
   return (
@@ -30,9 +29,9 @@ const Item: React.FC<ItemProps> = (book) => {
             {isThisBookinFavourite ? "Favourite" : "Bookmark"}
           </Button>
           {isEditable && (
-            <Link to={`/edit/${book.id}`}>
-              <Button variant="outline">Edit</Button>
-            </Link>
+            <Button onClick={goToEdit} variant="outline">
+              Edit
+            </Button>
           )}
         </section>
       </section>

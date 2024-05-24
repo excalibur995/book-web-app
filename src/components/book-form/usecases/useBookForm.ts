@@ -33,7 +33,8 @@ export default function useBookForm() {
         reset(data);
       }
     }
-  }, [getUserAddedBook, id, reset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!id) {
@@ -61,11 +62,11 @@ export default function useBookForm() {
   const onSubmit = (data: Book) => {
     if (isEditState) {
       dispatch(editAddedBook(data));
-      return navigate("/", { replace: true });
+      return navigate(`/detail/${data.id}`, { replace: true });
     }
     setValue("isUserAddedBook", true);
     dispatch(createNewBook(data));
-    navigate("/", { replace: true });
+    return navigate(`/detail/${data.id}`, { replace: true });
   };
 
   const onFinish = handleSubmit(onSubmit);

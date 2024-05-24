@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useBookStore from "src/lib/stores/books-store/hook";
-import { Book } from "src/models/types";
+import { Book, ButtonClick } from "src/models/types";
 
 const defaultImage = "/no-cover.png";
 
 export default function useItemState(book: Book) {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [imageSrc, setImageSrc] = useState(book.cover);
   const { onAddToFavorite, onRemovefromFavourite, checkIsBookFavourite } = useBookStore();
 
@@ -25,12 +27,17 @@ export default function useItemState(book: Book) {
     onRemovefromFavourite(book.id);
   };
 
-  const onHandleToggleFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onHandleToggleFavourite = (e: ButtonClick) => {
     e.preventDefault();
     if (isThisBookinFavourite) {
       return removefromFavourite();
     }
     return addtoFavourite();
+  };
+
+  const goToEdit = (e: ButtonClick) => {
+    e.preventDefault();
+    navigate(`/edit/${book.id}`);
   };
 
   return {
@@ -40,5 +47,6 @@ export default function useItemState(book: Book) {
     handleImageError,
     imageSrc,
     isDetail: !!id,
+    goToEdit,
   };
 }

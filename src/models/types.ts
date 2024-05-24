@@ -11,3 +11,5 @@ export interface Book {
   publicationDate: string;
   isUserAddedBook?: boolean;
 }
+
+export type ButtonClick = React.MouseEvent<HTMLButtonElement, MouseEvent>;

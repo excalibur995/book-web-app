@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import MobileMenu from "./components/mobile-menu";
+import NavLink from "./components/presentation/nav-link";
 import "./navbar.scss";
 
 export default function Navbar() {
@@ -9,9 +11,9 @@ export default function Navbar() {
           <h1>Book Web App </h1>
         </Link>
         <section>
-          <Link to="/favourite">Favourite Books</Link>
-          <Link to="/add-book">Add new Books</Link>
+          <NavLink />
         </section>
+        <MobileMenu />
       </nav>
     </header>
   );
